@@ -1,0 +1,184 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #282833;
+  background: rgba(18, 18, 24, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1336px;
+  margin: 0 auto;
+  padding: 16px 32px;
+}
+
+/* Navegación Principal */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav > a,
+.nav-dropdown-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #e2e8f0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.main-nav > a:hover,
+.nav-dropdown-button:hover {
+  color: #c084fc;
+}
+
+/* Dropdown / Mega Menú Container */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-button span {
+  font-size: 11px;
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-button span {
+  transform: rotate(180deg);
+}
+
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 180px 180px 280px;
+  gap: 28px;
+  width: max-content;
+  padding: 24px;
+  border: 1px solid #3f3f46;
+  border-radius: 16px;
+  background-color: #121218;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  z-index: 200;
+}
+
+/* Puente invisible entre el botón y el menú para evitar que se cierre al desplazar el mouse */
+.mega-menu::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: transparent;
+}
+
+/* Acciones generales */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-search,
+.header-account {
+  color: #c1bfcc;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header-search:hover,
+.header-account:hover {
+  color: #ffffff;
+}
+
+.header-cart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #272733;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cart-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #9333ea;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.mobile-menu-button {
+  display: none;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 32px;
+    border-bottom: 1px solid #282833;
+    background: #121218;
+  }
+
+  .main-nav.nav-open {
+    display: flex;
+  }
+
+  .mega-menu {
+    position: static;
+    transform: none;
+    margin-top: 16px;
+    grid-template-columns: 1fr;
+    width: 100%;
+    box-shadow: none;
+    padding: 16px 0;
+    border: none;
+    background: transparent;
+  }
+
+  .mega-menu::before {
+    display: none;
+  }
+}
