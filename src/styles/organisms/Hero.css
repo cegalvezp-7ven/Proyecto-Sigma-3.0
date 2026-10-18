@@ -1,0 +1,91 @@
+.hero-organism {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 440px;
+  overflow: hidden;
+  padding: 65px max(32px, calc((100% - 1336px) / 2));
+  border-bottom: 1px solid #292932;
+  background:
+    radial-gradient(ellipse at 80% 45%, #49245f 0%, transparent 42%),
+    linear-gradient(110deg, #17151f, #111116 75%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.hero-badge {
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.hero-organism h1 {
+  margin: 25px 0 18px;
+  color: #ffffff;
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+}
+
+.hero-organism h1 span {
+  display: block;
+  color: #c084fc;
+}
+
+.hero-content p {
+  max-width: 590px;
+  margin-bottom: 28px;
+  color: #c1bfcc;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 13px 20px;
+  border: 1px solid #b66cf5;
+  border-radius: 6px;
+  background: #9333ea;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.hero-cta:hover {
+  background: #7e22ce;
+  color: #ffffff;
+}
+
+.hero-decoration {
+  position: absolute;
+  right: 12%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: rotate(-12deg);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.hero-decoration span {
+  color: #d8b4fe;
+  font-size: clamp(100px, 18vw, 250px);
+  font-weight: 900;
+}
+
+@media (max-width: 700px) {
+  .hero-organism {
+    min-height: 400px;
+    padding: 50px 22px;
+  }
+
+  .hero-decoration {
+    right: -10%;
+  }
+}
