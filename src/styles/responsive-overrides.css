@@ -1,0 +1,83 @@
+/* Capa transversal de responsividad para Proyecto Sigma / GameBites */
+:root { color-scheme: dark; scroll-padding-top: 88px; }
+html, body, #root { width: 100%; max-width: 100%; }
+body { overflow-x: clip; }
+.app-container { min-height: 100vh; display: flex; flex-direction: column; }
+button, input, select, textarea { max-width: 100%; }
+input, select, textarea { min-width: 0; }
+main, section, article, header, footer { min-width: 0; }
+img, video, iframe { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--color-primary-light, #c084fc); outline-offset: 3px; }
+
+@media (max-width: 1024px) {
+  .navbar-container { gap: 14px; padding-inline: 18px; }
+  .nav-links-section { gap: 14px; }
+  .nav-links-section a { font-size: 14px; }
+  .user-section { gap: 10px; }
+  .cart-link { padding-inline: 10px; }
+}
+@media (max-width: 768px) {
+  :root { scroll-padding-top: 72px; }
+  .navbar-container { position: relative; flex-wrap: wrap; padding: 12px 16px; gap: 10px; }
+  .brand-section { flex: 1 1 auto; min-width: 0; }
+  .menu-toggle { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; order: 2; }
+  .user-section { order: 3; flex-wrap: wrap; justify-content: flex-end; margin-left: auto; }
+  .nav-links-section { z-index: 1001; max-height: calc(100dvh - 72px); overflow-y: auto; gap: 4px; }
+  .nav-links-section a { display: block; width: 100%; padding: 11px 8px; border-radius: 6px; }
+  .nav-links-section a:hover, .nav-links-section a:focus-visible { background: rgba(192,132,252,.1); }
+  .user-logged-info { flex-wrap: wrap; justify-content: flex-end; }
+  .hero-organism { padding: 48px 22px; }
+  .products-catalog, .home-products, .promotions-content { padding-inline: 20px; }
+  .products-heading-container { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .product-filter { width: 100%; max-width: 360px; }
+  .product-filter select { width: 100%; }
+  .category-filters { flex-wrap: wrap; }
+  .category-filters button { min-height: 40px; }
+  .cart-item { gap: 14px; }
+  .cart-item-info, .cart-item-info > div { min-width: 0; }
+  .cart-item-controls { flex-wrap: wrap; justify-content: flex-end; }
+  .cart-summary { padding: 22px 18px; }
+  .cart-actions { flex-wrap: wrap; }
+  .cart-actions > * { flex: 1 1 180px; text-align: center; }
+}
+@media (max-width: 520px) {
+  .navbar-container { padding: 10px 12px; column-gap: 8px; }
+  .user-section { width: 100%; justify-content: space-between; order: 4; padding-top: 4px; }
+  .user-name { max-width: 45vw; overflow-wrap: anywhere; }
+  .cart-link, .login-link { min-height: 40px; }
+  .hero-organism { min-height: 0; padding: 42px 18px; }
+  .hero-organism h1 { font-size: clamp(2rem, 9vw, 2.8rem); letter-spacing: -.8px; }
+  .hero-content p { font-size: 14px; line-height: 1.65; }
+  .hero-decoration { right: -28%; opacity: .07; }
+  .products-catalog, .home-products, .promotions-content { padding-inline: 14px; }
+  .products-hero { padding: 44px 18px; }
+  .products-hero h1 { font-size: clamp(2rem, 9vw, 2.7rem); }
+  .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .product-card-content { padding: 13px; }
+  .product-card-content h3 { font-size: 14px; }
+  .cart-page, .contact-page, .about-page { padding-inline: 12px; }
+  .cart-item { align-items: flex-start; flex-direction: column; }
+  .cart-item-info { width: 100%; }
+  .cart-item-controls { width: 100%; justify-content: space-between; }
+  .cart-item-subtotal { margin-left: auto; }
+  .quantity-selector button { min-width: 36px; min-height: 36px; }
+  .login-card, .contact-card, .about-card { padding: 22px 18px; }
+  .footer-container { grid-template-columns: minmax(0, 1fr); padding: 30px 18px; }
+}
+@media (max-width: 360px) {
+  .products-grid { grid-template-columns: minmax(0, 1fr); }
+  .cart-link { padding-inline: 8px; font-size: 13px; }
+  .hero-cta { width: 100%; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+/* Ajustes específicos para la estructura real de la ficha de producto */
+@media (max-width: 520px) {
+  .product-detail-page { padding: 24px 12px; }
+  .product-detail-card { gap: 22px; padding: 18px; }
+  .product-detail-image-wrapper,
+  .product-detail-info { width: 100%; min-width: 0; }
+  .product-detail-actions { align-items: stretch; }
+  .add-to-cart-btn { flex: 1 1 160px; }
+}

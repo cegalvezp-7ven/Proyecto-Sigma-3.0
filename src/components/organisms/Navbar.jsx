@@ -50,12 +50,14 @@ function Navbar() {
           className={`menu-toggle ${menuOpen ? 'active' : ''}`}
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menú"
+          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
         >
           ☰
         </button>
 
-        <div className={`nav-links-section ${menuOpen ? 'menu-open' : ''}`}>
+        <div id="primary-navigation" className={`nav-links-section ${menuOpen ? 'menu-open' : ''}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
           <Link to="/products" onClick={() => setMenuOpen(false)}>Productos</Link>
           <Link to="/promociones" onClick={() => setMenuOpen(false)}>Promociones</Link>
