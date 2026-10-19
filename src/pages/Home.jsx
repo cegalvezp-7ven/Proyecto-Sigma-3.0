@@ -1,7 +1,8 @@
-
 import { Link } from 'react-router-dom';
 import products from '../data/products';
-import ProductCard from '../components/molecules/ProductCard';
+import Hero from '../components/organisms/Hero';
+import SectionHeading from '../components/molecules/SectionHeading';
+import ProductGrid from '../components/organisms/ProductGrid';
 import '../styles/pages/Home.css';
 
 function Home() {
@@ -9,49 +10,18 @@ function Home() {
 
   return (
     <main className="home-page">
-      <section className="home-hero">
-        <div className="home-hero-content">
-          <span className="home-badge">EDICIÓN COLECCIONISTA</span>
-
-          <h1>
-            Tus videojuegos favoritos,
-            <span> hechos chocolate.</span>
-          </h1>
-
-          <p>
-            Alta repostería artesanal inspirada en los mundos,
-            personajes e historias más icónicos de los videojuegos.
-          </p>
-
-          <Link to="/products" className="home-cta">
-            Ver catálogo completo →
-          </Link>
-        </div>
-
-        <div className="home-hero-decoration" aria-hidden="true">
-          <span>G</span>
-          <span>B</span>
-        </div>
-      </section>
+      <Hero />
 
       <section className="home-featured">
-        <div className="home-section-heading">
-          <div>
-            <span className="home-section-label">SELECCIÓN ESPECIAL</span>
-            <h2>Productos destacados</h2>
-            <p>Descubre los favoritos de nuestro universo gamer.</p>
-          </div>
+        <SectionHeading
+          eyebrow="SELECCIÓN ESPECIAL"
+          title="Productos destacados"
+          subtitle="Descubre los favoritos de nuestro universo gamer."
+          actionTo="/products"
+          actionText="Ver todos →"
+        />
 
-          <Link to="/products" className="home-view-all">
-            Ver todos →
-          </Link>
-        </div>
-
-        <div className="products-grid">
-          {destacados.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductGrid products={destacados} />
       </section>
 
       <section className="home-collections">

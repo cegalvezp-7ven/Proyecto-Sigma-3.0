@@ -1,0 +1,22 @@
+.footer-column {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.footer-column h3 {
+  margin: 0 0 6px;
+  color: white;
+  font-size: 15px;
+}
+
+.footer-column a {
+  color: #aaaab8;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-column a:hover {
+  color: #c084fc;
+}

@@ -1,8 +1,8 @@
-
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import products from '../data/products';
-import ProductCard from '../components/molecules/ProductCard';
+import SectionHeading from '../components/molecules/SectionHeading';
+import ProductGrid from '../components/organisms/ProductGrid';
 import '../styles/pages/Products.css';
 
 function Products() {
@@ -36,6 +36,20 @@ function Products() {
     setSearchParams(nuevosParametros);
   };
 
+  const cambiarCategoria = (nuevaCategoria) => {
+    const nuevosParametros = new URLSearchParams(searchParams);
+
+    if (nuevaCategoria === 'todos') {
+      nuevosParametros.delete('categoria');
+    } else {
+      nuevosParametros.set('categoria', nuevaCategoria);
+    }
+
+    setSearchParams(nuevosParametros);
+  };
+
+  const categoriasDisponibles = ['Pokémon', 'Minecraft', 'Zelda', 'Nintendo', 'Fortnite'];
+
   return (
     <main className="products-page">
       <section className="products-hero">
@@ -48,11 +62,11 @@ function Products() {
       </section>
 
       <section className="products-catalog">
-        <div className="products-heading">
-          <div>
-            <h2>Explora los productos</h2>
-            <p>{productosFiltrados.length} productos encontrados</p>
-          </div>
+        <div className="products-heading-container">
+          <SectionHeading
+            title="Explora los productos"
+            subtitle={`${productosFiltrados.length} productos encontrados`}
+          />
 
           <label className="product-filter">
             Tipo de producto
@@ -69,48 +83,33 @@ function Products() {
 
         <div className="category-filters">
           <button
+            type="button"
             className={categoria === 'todos' ? 'selected' : ''}
-            onClick={() => {
-              const params = new URLSearchParams(searchParams);
-              params.delete('categoria');
-              setSearchParams(params);
-            }}
+            onClick={() => cambiarCategoria('todos')}
           >
             Todas las categorías
           </button>
 
-          {['Pokémon', 'Minecraft', 'Zelda', 'Nintendo', 'Fortnite'].map(
-            (nombre) => (
-              <button
-                key={nombre}
-                className={
-                  categoria.toLowerCase() === nombre.toLowerCase()
-                    ? 'selected'
-                    : ''
-                }
-                onClick={() => {
-                  const params = new URLSearchParams(searchParams);
-                  params.set('categoria', nombre);
-                  setSearchParams(params);
-                }}
-              >
-                {nombre}
-              </button>
-            ),
-          )}
+          {categoriasDisponibles.map((nombre) => (
+            <button
+              key={nombre}
+              type="button"
+              className={
+                categoria.toLowerCase() === nombre.toLowerCase()
+                  ? 'selected'
+                  : ''
+              }
+              onClick={() => cambiarCategoria(nombre)}
+            >
+              {nombre}
+            </button>
+          ))}
         </div>
 
-        {productosFiltrados.length > 0 ? (
-          <div className="products-grid">
-            {productosFiltrados.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <p className="products-empty">
-            No encontramos productos con esos filtros.
-          </p>
-        )}
+        <ProductGrid
+          products={productosFiltrados}
+          emptyMessage="No encontramos productos con esos filtros."
+        />
       </section>
     </main>
   );

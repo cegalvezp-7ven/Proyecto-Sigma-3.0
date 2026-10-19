@@ -1,0 +1,25 @@
+.brand-logo {
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.brand-logo--small {
+  font-size: 16px;
+}
+
+.brand-logo--medium {
+  font-size: 22px;
+}
+
+.brand-logo--large {
+  font-size: 28px;
+}
+
+.brand-logo-accent {
+  color: #c084fc;
+}

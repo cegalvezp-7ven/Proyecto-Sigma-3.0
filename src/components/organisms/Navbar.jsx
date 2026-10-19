@@ -1,122 +1,95 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../atoms/Logo';
 import '../../styles/organisms/Navbar.css';
 
 function Navbar() {
-  const [menuAbierto, setMenuAbierto] = useState(false);
-  const [megaMenuAbierto, setMegaMenuAbierto] = useState(false);
+  const navigate = useNavigate();
+  const [cartCount, setCartCount] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const cerrarMenus = () => {
-    setMenuAbierto(false);
-    setMegaMenuAbierto(false);
+  useEffect(() => {
+    const actualizarContador = () => {
+      const cartGuardado = localStorage.getItem('gamebites_cart');
+      const cart = cartGuardado ? JSON.parse(cartGuardado) : [];
+      const total = cart.reduce((acc, item) => acc + item.quantity, 0);
+      setCartCount(total);
+    };
+    const actualizarUsuario = () => {
+      const usuarioGuardado = localStorage.getItem('gamebites_user');
+      setUser(usuarioGuardado ? JSON.parse(usuarioGuardado) : null);
+    };
+
+    actualizarContador();
+    actualizarUsuario();
+    window.addEventListener('cartUpdated', actualizarContador);
+    window.addEventListener('userUpdated', actualizarUsuario);
+
+    return () => {
+      window.removeEventListener('cartUpdated', actualizarContador);
+      window.removeEventListener('userUpdated', actualizarUsuario);
+    };
+  }, []);
+
+  const handleCerrarSesion = () => {
+    localStorage.removeItem('gamebites_user');
+    setUser(null);
+    alert('Sesión cerrada correctamente.');
+    navigate('/');
   };
 
   return (
-    <header className="site-header">
-      <div className="header-main">
-        <Link to="/" className="brand" onClick={cerrarMenus}>
-          <span className="brand-game">GAME</span>
-          <span className="brand-bites">BITES</span>
-          <span className="brand-dot">.</span>
-        </Link>
+    <header className="main-header">
+      <nav className="navbar-container">
+        <div className="brand-section">
+          <Logo />
+        </div>
 
         <button
-          className="mobile-menu-button"
+          className={`menu-toggle ${menuOpen ? 'active' : ''}`}
           type="button"
-          aria-label="Abrir menú"
-          aria-expanded={menuAbierto}
-          onClick={() => setMenuAbierto(!menuAbierto)}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
         >
           ☰
         </button>
 
-        <nav className={`main-nav ${menuAbierto ? 'nav-open' : ''}`}>
-          <Link to="/" onClick={cerrarMenus}>
-            Inicio
-          </Link>
-
-          <Link to="/nosotros" onClick={cerrarMenus}>
-            Nosotros
-          </Link>
-
-          <div
-            className="nav-dropdown"
-            onMouseEnter={() => setMegaMenuAbierto(true)}
-            onMouseLeave={() => setMegaMenuAbierto(false)}
-          >
-            <button
-              type="button"
-              className="nav-dropdown-button"
-              aria-expanded={megaMenuAbierto}
-              onClick={() => setMegaMenuAbierto(!megaMenuAbierto)}
-            >
-              Categorías <span>⌄</span>
-            </button>
-
-            {megaMenuAbierto && (
-              <div className="mega-menu">
-                <div className="mega-menu-column">
-                  <h3>Productos</h3>
-                  <Link to="/products" onClick={cerrarMenus}>
-                    Todos los productos
-                  </Link>
-                  <Link to="/products?tipo=individual" onClick={cerrarMenus}>
-                    Chocolates individuales
-                  </Link>
-                  <Link to="/products?tipo=box" onClick={cerrarMenus}>
-                    Cajas coleccionables
-                  </Link>
-                </div>
-
-                <div className="mega-menu-column">
-                  <h3>Universos gamer</h3>
-                  <Link to="/products?categoria=Pokemon" onClick={cerrarMenus}>
-                    Pokémon
-                  </Link>
-                  <Link to="/products?categoria=Minecraft" onClick={cerrarMenus}>
-                    Minecraft
-                  </Link>
-                  <Link to="/products?categoria=Zelda" onClick={cerrarMenus}>
-                    Zelda
-                  </Link>
-                  <Link to="/products?categoria=Nintendo" onClick={cerrarMenus}>
-                    Nintendo
-                  </Link>
-                </div>
-
-                <div className="mega-menu-feature">
-                  <span className="mega-menu-label">GAMEBITES</span>
-                  <h3>Tu universo gamer, en chocolate</h3>
-                  <p>Descubre figuras, bombones y cajas coleccionables.</p>
-                  <Link to="/products" onClick={cerrarMenus}>
-                    Explorar catálogo →
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <Link to="/promociones" onClick={cerrarMenus}>
-            Promociones
-          </Link>
-
-          <Link to="/contacto" onClick={cerrarMenus}>
-            Contacto
-          </Link>
-        </nav>
-
-        <div className="header-actions">
-          <Link to="/products" className="header-search" aria-label="Ver productos">
-            Buscar
-          </Link>
-          <Link to="/login" className="header-account">
-            Mi cuenta
-          </Link>
-          <Link to="/carrito" className="header-cart">
-            Carrito <span className="cart-count">0</span>
-          </Link>
+        <div className={`nav-links-section ${menuOpen ? 'menu-open' : ''}`}>
+          <Link to="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link to="/products" onClick={() => setMenuOpen(false)}>Productos</Link>
+          <Link to="/promociones" onClick={() => setMenuOpen(false)}>Promociones</Link>
+          <Link to="/nosotros" onClick={() => setMenuOpen(false)}>Nosotros</Link>
+          <Link to="/contacto" onClick={() => setMenuOpen(false)}>Contacto</Link>
+          {user?.role === 'admin' && (
+            <Link to="/admin" style={{ color: '#00f2fe', fontWeight: 'bold' }}>
+              Panel Admin
+            </Link>
+          )}
         </div>
-      </div>
+
+        <div className="user-section">
+          <Link to="/carrito" className="cart-link">
+            <span>🛒 Carrito</span>
+            <span className="cart-count">{cartCount}</span>
+          </Link>
+
+          {user ? (
+            <div className="user-logged-info">
+              <span className="user-name">Hola, {user.name}</span>
+              <button
+                type="button"
+                className="logout-btn"
+                onClick={handleCerrarSesion}
+              >
+                Salir
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" className="login-link">Acceso</Link>
+          )}
+        </div>
+      </nav>
     </header>
   );
 }

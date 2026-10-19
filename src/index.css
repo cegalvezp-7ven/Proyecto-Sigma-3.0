@@ -74,16 +74,6 @@ p {
   min-height: 100vh;
 }
 
-.app-layout {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.app-content {
-  flex: 1;
-}
-
 ::selection {
   background: #9333ea;
   color: #fff;

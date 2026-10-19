@@ -1,46 +1,30 @@
-
 import { Link } from 'react-router-dom';
+import Badge from '../atoms/Badge';
+import Price from '../atoms/Price';
 import '../../styles/molecules/ProductCard.css';
 
 function ProductCard({ product }) {
-  const precio = product.price.toLocaleString('es-CL', {
-    style: 'currency',
-    currency: 'CLP',
-    maximumFractionDigits: 0,
-  });
-
   return (
-    <article className="product-card">
-      <Link
-        to={`/products?id=${product.id}`}
-        className="product-card-link"
-      >
-        <div className="product-card-image">
-          <img src={product.image} alt={product.name} />
+    <Link to={`/products/${product.id}`} className="product-card-link">
+      <article className="product-card">
+        <Badge variant="dark" className="product-card-badge">
+          {product.category}
+        </Badge>
 
-          <span className="product-card-badge">
-            {product.category}
-          </span>
+        <div className="product-card-image">
+          <img src={`${product.image}`} alt={product.name} />
         </div>
 
         <div className="product-card-content">
-          <span className="product-card-type">
-            {product.type === 'box'
-              ? 'Caja coleccionable'
-              : 'Chocolate individual'}
-          </span>
-
           <h3>{product.name}</h3>
-
           <p>{product.description}</p>
-
           <div className="product-card-footer">
-            <strong>{precio}</strong>
-            <span>Ver detalle →</span>
+            <Price amount={product.price} />
+            <span className="product-card-btn">Ver Detalle</span>
           </div>
         </div>
-      </Link>
-    </article>
+      </article>
+    </Link>
   );
 }
 

@@ -1,15 +1,30 @@
-
-import { Link } from 'react-router-dom';
+import Logo from '../atoms/Logo';
+import { FooterColumn } from '../molecules/FooterColumn';
 import '../../styles/organisms/Footer.css';
 
 function Footer() {
+  const productLinks = [
+    { label: 'Ver catálogo', to: '/products' },
+    { label: 'Chocolates individuales', to: '/products?tipo=individual' },
+    { label: 'Cajas coleccionables', to: '/products?tipo=box' },
+  ];
+
+  const companyLinks = [
+    { label: 'Inicio', to: '/' },
+    { label: 'Nosotros', to: '/nosotros' },
+    { label: 'Promociones', to: '/promociones' },
+  ];
+
+  const supportLinks = [
+    { label: 'Contacto', to: '/contacto' },
+    { label: 'Correo electrónico', to: 'mailto:contacto@gamebites.cl', isExternal: true },
+  ];
+
   return (
     <footer className="site-footer">
       <div className="footer-container">
         <div className="footer-brand">
-          <Link to="/" className="footer-logo">
-            GAME<span>BITES</span>.
-          </Link>
+          <Logo />
 
           <p>
             Tu universo gamer, convertido en chocolates
@@ -21,37 +36,13 @@ function Footer() {
           </span>
         </div>
 
-        <div className="footer-column">
-          <h3>Productos</h3>
-          <Link to="/products">Ver catálogo</Link>
-          <Link to="/products?tipo=individual">
-            Chocolates individuales
-          </Link>
-          <Link to="/products?tipo=box">
-            Cajas coleccionables
-          </Link>
-        </div>
-
-        <div className="footer-column">
-          <h3>GameBites</h3>
-          <Link to="/">Inicio</Link>
-          <Link to="/nosotros">Nosotros</Link>
-          <Link to="/promociones">Promociones</Link>
-        </div>
-
-        <div className="footer-column">
-          <h3>Atención al cliente</h3>
-          <Link to="/contacto">Contacto</Link>
-          <a href="mailto:contacto@gamebites.cl">
-            Correo electrónico
-          </a>
-        </div>
+        <FooterColumn title="Productos" links={productLinks} />
+        <FooterColumn title="GameBites" links={companyLinks} />
+        <FooterColumn title="Atención al cliente" links={supportLinks} />
       </div>
 
       <div className="footer-bottom">
-        <p>
-          © 2026 GameBites. Todos los derechos reservados.
-        </p>
+        <p>© 2026 GameBites. Todos los derechos reservados.</p>
       </div>
     </footer>
   );

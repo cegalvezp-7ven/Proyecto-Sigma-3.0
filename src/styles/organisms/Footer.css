@@ -1,4 +1,3 @@
-
 .site-footer {
   margin-top: auto;
   background: #111116;
@@ -15,19 +14,6 @@
   gap: 38px;
 }
 
-.footer-logo {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 900;
-  text-decoration: none;
-}
-
-.footer-logo span {
-  color: #c084fc;
-}
-
 .footer-brand p {
   max-width: 310px;
   margin-bottom: 16px;
@@ -39,29 +25,6 @@
 .footer-address {
   color: #aaaab8;
   font-size: 13px;
-}
-
-.footer-column {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 13px;
-}
-
-.footer-column h3 {
-  margin: 0 0 6px;
-  color: white;
-  font-size: 15px;
-}
-
-.footer-column a {
-  color: #aaaab8;
-  text-decoration: none;
-  font-size: 13px;
-}
-
-.footer-column a:hover {
-  color: #c084fc;
 }
 
 .footer-bottom {
