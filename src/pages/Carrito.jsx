@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Price from '../components/atoms/Price';
 import products from '../data/products';
 import '../styles/pages/Carrito.css';
 
+// Se genera el identificador al procesar una compra, no durante el render.
+function generarIdOrden() {
+  return Math.floor(1000 + Math.random() * 9000);
+}
+
 function Carrito() {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    const cartGuardado = localStorage.getItem('gamebites_cart');
-    if (cartGuardado) {
-      setCartItems(JSON.parse(cartGuardado));
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('gamebites_cart') || '[]');
+    } catch {
+      return [];
     }
-  }, []);
+  });
 
   const actualizarStorage = (nuevoCarrito) => {
     setCartItems(nuevoCarrito);
@@ -71,7 +75,7 @@ const procesarCompra = () => {
     const listaOrdenes = ordenesGuardadas ? JSON.parse(ordenesGuardadas) : [];
 
     const nuevaOrden = {
-      id: Math.floor(1000 + Math.random() * 9000),
+      id: generarIdOrden(),
       fecha: new Date().toLocaleDateString('es-CL'),
       cliente: usuario.name || usuario.email,
       detalle: itemsConDetalle.map((i) => `${i.name} (${i.quantity}x)`).join(', '),

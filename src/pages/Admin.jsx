@@ -5,32 +5,38 @@ import '../styles/pages/Admin.css';
 
 function Admin() {
   const [productos, setProductos] = useState(productsData);
-  const [ordenes, setOrdenes] = useState([]);
+  const [ordenes, setOrdenes] = useState(() => {
+    const ordenesGuardadas = localStorage.getItem('gamebites_orders');
+
+    if (ordenesGuardadas) {
+      try {
+        return JSON.parse(ordenesGuardadas);
+      } catch {
+        // Si el contenido guardado no es válido, se usan los pedidos de ejemplo.
+      }
+    }
+
+    return [
+      {
+        id: 1001,
+        fecha: '15/10/2026',
+        cliente: 'cliente@gmail.com',
+        detalle: 'PokéBall Surprise (1x), Bloque Redstone (2x)',
+        total: 30970,
+      },
+    ];
+  });
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState('');
   const [price, setPrice] = useState('');
   const [type, setType] = useState('individual');
   const [description, setDescription] = useState('');
-  //carga los productos y ordenes desde localStorage al entrar
+
+  // Persiste los pedidos cuando cambian, sin actualizar el estado desde el efecto.
   useEffect(() => {
-    const ordenesGuardadas = localStorage.getItem('gamebites_orders');
-    if (ordenesGuardadas) {
-      setOrdenes(JSON.parse(ordenesGuardadas));
-    } else {
-      const iniciales = [
-        {
-          id: 1001,
-          fecha: '15/10/2026',
-          cliente: 'cliente@gmail.com',
-          detalle: 'PokéBall Surprise (1x), Bloque Redstone (2x)',
-          total: 30970,
-        },
-      ];
-      setOrdenes(iniciales);
-      localStorage.setItem('gamebites_orders', JSON.stringify(iniciales));
-    }
-  }, []);
+    localStorage.setItem('gamebites_orders', JSON.stringify(ordenes));
+  }, [ordenes]);
 
   const totalVentas = ordenes.reduce((acc, order) => acc + order.total, 0);
 
